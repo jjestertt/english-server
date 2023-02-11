@@ -1,8 +1,10 @@
 import { Router }  from "express"
-import {getAllCards, getCard, updateCard} from "../controller/cardController.js";
 export const cardRouter = new Router()
 
-cardRouter.get('/cards', getAllCards)
-cardRouter.get('/card', getCard)
-cardRouter.put('/card', updateCard)
+import CardController from "../controller/cardController.js";
+
+cardRouter.get('/cards', CardController.getAllCards)
+cardRouter.get('/card/:id', CardController.getCardById)
+cardRouter.post('/card', CardController.createCard)
+cardRouter.put('/card/:id', CardController.updateCard)
 
