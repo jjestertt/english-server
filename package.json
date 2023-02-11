@@ -1,7 +1,7 @@
 {
   "name": "englishserver",
   "version": "1.0.0",
-  "description": "English server for polly",
+  "description": "English server",
   "main": "index.js",
   "type": "module",
   "scripts": {
