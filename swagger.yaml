@@ -1,0 +1,179 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://english-server-production-6ade.up.railway.app/api
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: English Cards API
+  contact:
+    email: jjestertt@gmail.com
+paths:
+  /card:
+    post:
+      tags:
+        - Card
+      summary: Create one card
+      operationId: createCard
+      description: |
+        Create one card
+      requestBody:
+        description: Update card data (send empty value is not allowed)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/createCardData'
+      responses:
+        '201':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/card'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /card/{card_id}:
+    put:
+      tags:
+        - Card
+      summary: Update card
+      operationId: updateCard
+      description: |
+        Update current card
+      parameters:
+        - in: path
+          name: card_id
+          required: true
+          description: Id current card.
+          schema:
+            type: string
+      requestBody:
+        description: Update card data (send emty value is not allowed)
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateCardData'
+
+
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+    get:
+      tags:
+        - Card
+      summary: Return one card
+      parameters:
+        - in: path
+          name: card_id
+          required: true
+          description: Id current card.
+          schema:
+            type: string
+      operationId: getCard
+      description: |
+        Return one english cards
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/card'
+
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+  /cards:
+    get:
+      tags:
+        - Card
+      summary: Return all cards
+      operationId: getAllCards
+      description: |
+        Return all english cards
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/card'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/error'
+components:
+  schemas:
+    error:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Something went wrong"
+        errors:
+          type: object
+    card:
+      type: object
+      required:
+        - _id
+        - title
+        - description
+      properties:
+        _id:
+          type: string
+          format: uuid
+          example: 63e7a62adf4082b3d162dd8b
+        title:
+          type: string
+          example: Max
+        description:
+          type: string
+          example: Mad Max
+    updateCardData:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Max
+        description:
+          type: string
+          example: Mad Max
+    createCardData:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          example: Max
+        description:
+          type: string
+          example: Mad Max
