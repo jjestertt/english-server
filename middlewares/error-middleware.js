@@ -1,6 +1,8 @@
 import ApiError from "../exeptions/apiError.js";
 
-const errorMiddleware = (err, req, res) => {
+
+//WARNING: Don't delete unused next. It needs for correct work middleware
+const errorMiddleware = (err, req, res, next) => {
     console.log(err.message)
 
     if (err instanceof ApiError) {
